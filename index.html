@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#191a35">
+  <title>RideEaze | Shared journeys, made easier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ink:#191a35;--muted:#73768d;--purple:#655be7;--purple-dark:#5147cb;--lav:#eeedff;--bg:#f7f8fc;--line:#e8e9f2;--green:#07866a;--red:#d84c5b;--white:#fff;--shadow:0 18px 55px rgba(31,33,72,.08)}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;color:var(--ink);background:radial-gradient(circle at 8% 0%,#eeedff 0,transparent 26%),var(--bg);min-height:100vh;overflow-x:hidden}
+    button,input,select{font:inherit} button{cursor:pointer}
+    .page-shell{width:min(1160px,calc(100% - 48px));margin:0 auto}
+    .site-header{height:92px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink);font:800 25px 'Manrope',sans-serif;letter-spacing:-1.2px}
+    .brand-mark{height:42px;width:42px;border-radius:13px;background:linear-gradient(135deg,#766cf0,#5147c9);display:grid;place-items:center;color:white;font-size:24px;box-shadow:0 8px 18px #655be733}
+    .brand-eaze{color:var(--purple)}
+    .nav{display:flex;align-items:center;gap:30px}
+    .nav a{color:#5d6078;text-decoration:none;font-size:14px;font-weight:700;transition:color .2s}
+    .nav a:hover{color:var(--purple)}
+    .btn{border:0;border-radius:11px;padding:13px 19px;background:linear-gradient(135deg,#7168eb,#554bd1);color:white;font-weight:700;box-shadow:0 8px 18px #655be72b;transition:transform .2s,box-shadow .2s,filter .2s}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 12px 24px #655be73b;filter:brightness(1.03)}
+    .btn:active{transform:translateY(0)}
+    .btn-light{background:#fff;color:var(--ink);border:1px solid var(--line);box-shadow:none}
+    .btn-light:hover{background:#f8f7ff;box-shadow:0 8px 18px #2929580d}
+    .btn-small{padding:11px 17px;font-size:13px}
+    .hero{min-height:390px;margin:28px 0 48px;border-radius:27px;padding:58px 68px;display:flex;align-items:center;justify-content:space-between;gap:30px;overflow:hidden;position:relative;background:linear-gradient(112deg,#191a36 0%,#302f68 63%,#6258ce 100%);box-shadow:0 25px 60px rgba(42,39,105,.15)}
+    .hero:before,.hero:after{content:"";position:absolute;border:1px solid #ffffff20;border-radius:50%;pointer-events:none}
+    .hero:before{width:410px;height:410px;right:75px;top:-180px}.hero:after{width:300px;height:300px;right:-80px;bottom:-190px}
+    .hero-copy{max-width:590px;position:relative;z-index:2}
+    .eyebrow{display:inline-flex;align-items:center;gap:9px;color:#c8c3ff;font-size:11px;font-weight:800;letter-spacing:2px;margin-bottom:22px}
+    .eyebrow-dot{height:7px;width:7px;border-radius:50%;background:#a9a1ff;box-shadow:0 0 0 5px #a9a1ff20}
+    .hero h1{font:800 clamp(42px,5vw,61px)/1.08 'Manrope',sans-serif;color:white;letter-spacing:-2.8px;margin-bottom:18px}
+    .hero h1 span{color:#aaa3ff}
+    .hero p{max-width:475px;color:#d3d3e8;font-size:16px;line-height:1.8;margin-bottom:27px}
+    .hero-cta{display:inline-flex;align-items:center;gap:25px;padding:14px 20px;border-radius:11px;background:#fff;color:#302d69;text-decoration:none;font-weight:800;font-size:14px;transition:transform .2s,background .2s}
+    .hero-cta:hover{transform:translateY(-2px);background:#f2f0ff}
+    .hero-art{width:310px;height:260px;flex:0 0 310px;position:relative;display:grid;place-items:center;z-index:1}
+    .orbit{width:220px;height:220px;border:1px solid #ffffff35;border-radius:50%;display:grid;place-items:center;background:#ffffff0b;box-shadow:inset 0 0 55px #ffffff08}
+    .orbit-inner{height:145px;width:145px;border-radius:50%;display:grid;place-items:center;background:#ffffff12;color:#e4e1ff;font:800 91px 'Manrope',sans-serif}
+    .float-note{position:absolute;bottom:10px;left:-3px;background:#fff;border-radius:14px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 15px 35px #0b0b281f;white-space:nowrap}
+    .float-icon{height:38px;width:38px;border-radius:11px;background:var(--lav);color:var(--purple);display:grid;place-items:center;font-size:18px}
+    .float-note strong{display:block;font-size:12px}.float-note small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+    .section-kicker{font-size:11px;color:var(--purple);font-weight:800;letter-spacing:1.6px;text-transform:uppercase;margin-bottom:9px}
+    .main-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(330px,.85fr);gap:24px;align-items:start;margin-bottom:55px}
+    .panel{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:29px;box-shadow:var(--shadow)}
+    .panel-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:24px;padding-bottom:17px;border-bottom:1px solid #eff0f5}
+    .panel-heading h2{font:800 20px 'Manrope',sans-serif;letter-spacing:-.5px}
+    .heading-icon{height:38px;width:38px;border-radius:11px;background:var(--lav);color:var(--purple);display:grid;place-items:center;font-size:18px}
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:17px}
+    .field{min-width:0;position:relative}
+    .field label{display:block;font-size:12px;font-weight:800;color:#555a73;margin-bottom:8px}
+    .field input,.field select{width:100%;height:49px;padding:0 14px;border:1px solid #e4e5ef;border-radius:10px;background:#fbfbfe;color:var(--ink);outline:none;transition:border .2s,box-shadow .2s}
+    .field input::placeholder{color:#a0a3b6}
+    .field input:focus,.field select:focus{border-color:#928bf0;box-shadow:0 0 0 4px #655be714;background:white}
+    .field input:disabled{background:#f3f4f8;color:#85889b;cursor:not-allowed}
+    .search-btn{width:100%;height:51px;margin-top:5px;font-size:14px}
+    .results-heading{display:flex;align-items:center;justify-content:space-between;margin:30px 0 15px;padding-bottom:13px;border-bottom:1px solid #eff0f5}
+    .results-heading h3{font:800 17px 'Manrope',sans-serif}
+    .results-heading span{font-size:12px;color:var(--muted)}
+    #resultsArea{display:grid;gap:13px}
+    .empty-state{padding:25px 15px;text-align:center;background:#fafaff;border:1px dashed #deddf3;border-radius:13px;color:var(--muted);font-size:13px;line-height:1.7}
+    .empty-icon{font-size:25px;color:#938ce9;margin-bottom:8px}
+    .driver-panel{position:sticky;top:20px}
+    .driver-panel .panel-heading{margin-bottom:20px}
+    .route-builder{display:flex;gap:9px;align-items:center}
+    .route-builder input{min-width:0;flex:1}
+    .route-builder .btn{height:47px;padding:0 17px}
+    .route-display{margin-top:12px;padding:12px;border-radius:10px;background:#f8f7ff;border:1px solid #eeedff;color:var(--purple);font-size:12px;font-weight:700;line-height:1.6;min-height:42px;overflow-wrap:anywhere}
+    .save-btn{width:100%;margin-top:5px}
+    .autocomplete-dropdown{position:absolute;top:calc(100% + 5px);left:0;right:0;background:white;border:1px solid var(--line);border-radius:11px;max-height:210px;overflow-y:auto;z-index:50;display:none;box-shadow:0 12px 30px #17173518}
+    .autocomplete-item{padding:11px 13px;font-size:12px;line-height:1.5;cursor:pointer;border-bottom:1px solid #f1f1f6;color:#4f536b}
+    .autocomplete-item:last-child{border-bottom:0}.autocomplete-item:hover{background:#f5f4ff;color:var(--purple)}
+    .result-card{padding:19px;border:1px solid var(--line);border-radius:15px;background:#fff;transition:transform .2s,box-shadow .2s,border .2s}
+    .result-card:hover{transform:translateY(-2px);border-color:#d8d5ff;box-shadow:0 12px 28px #2929580d}
+    .result-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:15px}
+    .driver-identity{display:flex;align-items:center;gap:11px;min-width:0}
+    .driver-avatar{height:43px;width:43px;flex:0 0 43px;border-radius:13px;background:linear-gradient(135deg,#eeeaff,#dcd8ff);display:grid;place-items:center;color:#5147c9;font:800 17px 'Manrope',sans-serif}
+    .driver-name{font:800 14px 'Manrope',sans-serif;overflow-wrap:anywhere}.driver-meta{font-size:11px;color:var(--muted);margin-top:4px}
+    .fare{text-align:right;white-space:nowrap}.fare strong{display:block;color:var(--green);font:800 20px 'Manrope',sans-serif}.fare small{font-size:10px;color:var(--muted)}
+    .route-line{display:flex;align-items:center;gap:10px;padding:13px 12px;background:#fafaff;border:1px solid #f0effa;border-radius:11px;margin-bottom:13px}
+    .route-point{min-width:0;flex:1}.route-point small{display:block;color:var(--muted);font-size:10px;margin-bottom:4px}.route-point strong{display:block;font-size:12px;overflow-wrap:anywhere}.route-arrow{color:#9a94eb;font-size:17px}
+    .match-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.match-label{font-size:11px;color:var(--muted);font-weight:700}.score-value{font-size:12px;font-weight:800;color:var(--purple)}
+    .score-track{height:6px;background:#efeff7;border-radius:99px;overflow:hidden;margin-top:7px}.score-fill{height:100%;background:linear-gradient(90deg,#8278f1,#5147cc);border-radius:99px}
+    .ride-facts{display:flex;flex-wrap:wrap;gap:8px 15px;margin:12px 0 15px;color:#62667e;font-size:11px}.ride-facts span{display:inline-flex;align-items:center;gap:5px}
+    .card-actions{display:flex;justify-content:flex-end}.card-actions button{width:auto;min-width:125px}
+    .modal-overlay{display:none;position:fixed;inset:0;background:#17172e80;backdrop-filter:blur(5px);z-index:1000;justify-content:center;align-items:center;padding:20px}
+    .modal-content{width:min(100%,470px);max-height:90vh;overflow:auto;background:white;border:1px solid var(--line);border-radius:20px;padding:30px;position:relative;box-shadow:0 25px 80px #11112b35}
+    .close-btn{position:absolute;right:19px;top:16px;border:0;background:#f3f3fa;color:#62657b;border-radius:9px;width:31px;height:31px;display:grid;place-items:center;font-size:20px}
+    .close-btn:hover{background:#eeeaff;color:var(--purple)}
+    .auth-overlay{background:radial-gradient(circle at 15% 10%,#eeedff 0,transparent 30%),#f7f8fc;z-index:2000}
+    .auth-card{max-width:410px;text-align:center;padding:38px}
+    .auth-brand{display:flex;justify-content:center;margin-bottom:20px}.auth-card h1{font:800 26px 'Manrope',sans-serif;letter-spacing:-.8px;margin-bottom:8px}.auth-subtitle{font-size:13px;color:var(--muted);margin-bottom:27px;line-height:1.6}
+    .auth-card .field{text-align:left;margin-bottom:16px}.auth-card .field label{text-transform:none;letter-spacing:0}
+    .auth-submit{width:100%;margin-top:5px}.auth-switch{margin-top:20px;font-size:12px;color:var(--muted)}.auth-switch span{color:var(--purple);font-weight:800;cursor:pointer;margin-left:4px}
+    .booking-card-style{padding:15px;border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:#fff;font-size:12px;line-height:1.7}
+    .booking-card-header{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:6px}
+    .status-badge-done,.status-badge-upcoming{padding:4px 9px;border-radius:99px;font-size:10px;font-weight:800;white-space:nowrap}.status-badge-done{background:#f0f1f5;color:#666b7c}.status-badge-upcoming{background:#e8f7f2;color:#08775e}
+    .database-list{max-height:390px;overflow:auto;margin-top:18px}
+    .error-msg{color:var(--red);background:#fff5f5;border:1px solid #ffe1e3;border-radius:10px;padding:12px;font-size:12px;font-weight:700}
+    .loading-msg{color:var(--muted);font-size:13px;text-align:center;padding:18px}
+    .site-footer{border-top:1px solid var(--line);padding:25px 0 35px;margin-top:20px;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    .footer-brand{font:800 13px 'Manrope',sans-serif;color:var(--ink)}
+    @media(max-width:900px){.hero{padding:45px}.hero-art{width:230px;flex-basis:230px}.main-grid{grid-template-columns:1fr}.driver-panel{position:static}}
+    @media(max-width:650px){.page-shell{width:min(100% - 28px,1160px)}.site-header{height:75px}.nav{gap:10px}.nav a{display:none}.hero{margin:18px 0 28px;padding:34px 25px;min-height:0}.hero h1{font-size:42px;letter-spacing:-2px}.hero p{font-size:14px}.hero-art{display:none}.panel{padding:21px;border-radius:16px}.field-row{grid-template-columns:1fr;gap:13px}.main-grid{gap:17px}.result-top{align-items:flex-start}.fare strong{font-size:17px}.site-footer{margin-top:5px}.auth-card{padding:28px 22px}}
+  </style>
+</head>
+<body>
+  <div id="loginOverlay" class="modal-overlay auth-overlay" style="display:flex">
+    <div class="modal-content auth-card">
+      <div class="auth-brand"><a class="brand" href="#"><span class="brand-mark">R</span><span>Ride<span class="brand-eaze">Eaze</span></span></a></div>
+      <h1 id="authTitle">Welcome back</h1>
+      <p class="auth-subtitle" id="authSubtitle">Sign in to discover rides and make your journey easier.</p>
+      <div class="field"><label for="authUsername">Username</label><input type="text" id="authUsername" placeholder="Enter your username" autocomplete="username"></div>
+      <div class="field"><label for="authPassword">Password</label><input type="password" id="authPassword" placeholder="Enter your password" autocomplete="current-password"></div>
+      <div class="field" id="accountTypeGroup" style="display:none"><label for="authAccountType">I want to join as</label><select id="authAccountType"><option value="PASSENGER">Passenger</option><option value="DRIVER">Driver</option></select></div>
+      <button id="authBtn" class="btn auth-submit" onclick="loginUser()">Sign in</button>
+      <div class="auth-switch"><span id="authToggleText">New to RideEaze?</span><span onclick="toggleAuthMode()">Create an account</span></div>
+    </div>
+  </div>
+
+  <div id="mainApp" style="display:none">
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top"><span class="brand-mark">R</span><span>Ride<span class="brand-eaze">Eaze</span></span></a>
+        <nav class="nav"><a href="#top">Home</a><a href="#rideSearch">Find rides</a><button class="btn btn-small" onclick="openBookingsModal()">My bookings ↗</button></nav>
+      </header>
+
+      <section class="hero" id="top">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-dot"></span> SMARTER WAY TO TRAVEL</div>
+          <h1>Your journey.<br><span>Shared better.</span></h1>
+          <p>Find people heading your way, share your journey and make every kilometre count. A better way to get there, together.</p>
+          <a class="hero-cta" href="#rideSearch">Find your ride <span>→</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="orbit"><div class="orbit-inner">R</div></div><div class="float-note"><span class="float-icon">✦</span><div><strong>Better journeys, together.</strong><small>Discover your next shared ride.</small></div></div></div>
+      </section>
+
+      <main class="main-grid">
+        <section class="panel" id="rideSearch">
+          <div class="panel-heading"><div><div class="section-kicker">Plan your journey</div><h2>Find your next ride</h2></div><span class="heading-icon">⌖</span></div>
+          <div class="field-row">
+            <div class="field"><label for="searchPickup">Pickup location</label><input type="text" id="searchPickup" placeholder="Where from?" oninput="searchCity(this,'pickup')" autocomplete="off"><div id="pickupDropdown" class="autocomplete-dropdown"></div></div>
+            <div class="field"><label for="searchDropoff">Drop-off location</label><input type="text" id="searchDropoff" placeholder="Where to?" oninput="searchCity(this,'dropoff')" autocomplete="off"><div id="dropoffDropdown" class="autocomplete-dropdown"></div></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label for="searchDate">Travel date</label><input type="date" id="searchDate"></div>
+            <div class="field"><label for="searchTime">Preferred time</label><input type="time" id="searchTime"></div>
+          </div>
+          <button class="btn search-btn" onclick="searchRides()">Find available rides <span aria-hidden="true">→</span></button>
+          <div class="results-heading"><h3>Matching rides</h3><span id="resultsCount">Results will appear here</span></div>
+          <div id="resultsArea"><div class="empty-state"><div class="empty-icon">⌁</div>Enter your route and travel details to discover compatible rides.</div></div>
+        </section>
+
+        <section class="panel driver-panel" id="driverPanel">
+          <div class="panel-heading"><div><div class="section-kicker">For drivers</div><h2>Share your route</h2></div><span class="heading-icon">↗</span></div>
+          <div class="field-row" style="grid-template-columns:1fr">
+            <div class="field"><label for="newDriverName">Driver name</label><input type="text" id="newDriverName" placeholder="Enter your name"></div>
+          </div>
+          <div class="field" style="margin-bottom:17px;position:relative"><label for="routeBuilderInput">Build your route</label><div class="route-builder"><input type="text" id="routeBuilderInput" placeholder="Search and add a city" oninput="searchCity(this,'route')" autocomplete="off"><button class="btn" onclick="addCityToRoute()">Add</button></div><div id="routeDropdown" class="autocomplete-dropdown"></div><div id="builtRouteDisplay" class="route-display">Your stops will appear here.</div></div>
+          <div class="field-row">
+            <div class="field"><label for="newDriverDate">Travel date</label><input type="date" id="newDriverDate"></div>
+            <div class="field"><label for="newDriverTime">Start time</label><input type="time" id="newDriverTime"></div>
+          </div>
+          <div class="field" style="margin-bottom:18px"><label for="newDriverCar">Vehicle type</label><select id="newDriverCar"><option value="Hatchback">Hatchback</option><option value="Sedan" selected>Sedan</option><option value="SUV">SUV</option></select></div>
+          <button class="btn save-btn" onclick="addDriver()">Publish ride <span aria-hidden="true">→</span></button>
+        </section>
+      </main>
+
+      <footer class="site-footer"><span class="footer-brand">RideEaze</span><span>Shared journeys, made easier.</span><span>Built with C++, graph algorithms & web technologies.</span></footer>
+    </div>
+  </div>
+
+  <div id="bookingsModal" class="modal-overlay"><div class="modal-content"><button class="close-btn" onclick="closeBookingsModal()" aria-label="Close">×</button><div class="section-kicker">Your activity</div><h2 style="font:800 22px 'Manrope';margin-bottom:8px">My bookings</h2><p style="font-size:12px;color:var(--muted)">Your upcoming and completed shared rides.</p><div id="bookingsListArea" class="database-list"><div class="loading-msg">Loading your bookings...</div></div></div></div>
+
+  <div id="bookingFormModal" class="modal-overlay"><div class="modal-content"><button class="close-btn" onclick="closeBookingForm()" aria-label="Close">×</button><div class="section-kicker">Confirm your seat</div><h2 id="bookingFormTitle" style="font:800 22px 'Manrope';margin-bottom:20px">Book ride</h2><input type="hidden" id="bookDriverName">
+    <div class="field-row"><div class="field"><label for="bookPassName">Passenger name</label><input type="text" id="bookPassName" placeholder="Your full name"></div><div class="field"><label for="bookContact">Contact number</label><input type="tel" id="bookContact" placeholder="10-digit number"></div></div>
+    <div class="field-row"><div class="field"><label for="bookEmail">Email address</label><input type="email" id="bookEmail" placeholder="you@example.com"></div><div class="field"><label for="bookDate">Travel date</label><input type="date" id="bookDate"></div></div>
+    <div class="field" style="margin-bottom:18px"><label for="bookPassCount">Number of passengers</label><input type="number" id="bookPassCount" value="1" min="1" max="6"></div><button class="btn" style="width:100%" onclick="submitBooking()">Confirm booking</button>
+  </div></div>
+
+  <script>
+    // Local development uses localhost. Set window.RIDEEAZE_API_URL before this script for deployment.
+    const API_BASE = (window.RIDEEAZE_API_URL || 'http://localhost:8082').replace(/\/$/, '');
+    let isLoginMode = true;
+    let currentAccountType = '';
+    let builtDriverRouteArray = [];
+    let autocompleteTimeout = null;
+    const searchCoords = { pickup:{name:'',lat:0,lon:0}, dropoff:{name:'',lat:0,lon:0}, route:{name:'',lat:0,lon:0} };
+
+    function apiUrl(path, params={}) {
+      const query = new URLSearchParams(params).toString();
+      return `${API_BASE}${path}${query ? `?${query}` : ''}`;
+    }
+    function localDateString(){const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().split('T')[0];}
+    document.getElementById('searchDate').value=localDateString();
+    document.getElementById('newDriverDate').value=localDateString();
+
+    function toggleAuthMode(){
+      isLoginMode=!isLoginMode;
+      document.getElementById('authTitle').textContent=isLoginMode?'Welcome back':'Create your account';
+      document.getElementById('authSubtitle').textContent=isLoginMode?'Sign in to discover rides and make your journey easier.':'Join RideEaze and make every journey a shared one.';
+      document.getElementById('authBtn').textContent=isLoginMode?'Sign in':'Create account';
+      document.getElementById('authToggleText').textContent=isLoginMode?'New to RideEaze?':'Already have an account?';
+      document.querySelector('.auth-switch span:last-child').textContent=isLoginMode?'Create an account':'Sign in';
+      document.getElementById('accountTypeGroup').style.display=isLoginMode?'none':'block';
+      document.getElementById('authUsername').value='';document.getElementById('authPassword').value='';
+    }
+
+    async function loginUser(){
+      const u=document.getElementById('authUsername').value.trim();
+      const p=document.getElementById('authPassword').value;
+      const t=document.getElementById('authAccountType').value;
+      if(!u||!p){alert('Please enter your username and password.');return;}
+      const endpoint=isLoginMode?'/api/login':'/api/signup';
+      try{
+        const response=await fetch(apiUrl(endpoint,{u,p,...(!isLoginMode?{t}:{})}));
+        if(!response.ok)throw new Error('Server returned '+response.status);
+        const msg=await response.text();
+        if(msg==='Exists'){alert('That username is already registered.');return;}
+        if(msg==='Failed'){alert('Incorrect username or password.');return;}
+        if(msg.startsWith('Success')){
+          const parts=msg.split(',');currentAccountType=isLoginMode?(parts[1]||'PASSENGER'):t;
+          localStorage.setItem('loggedInUsername',u);localStorage.setItem('accountType',currentAccountType);
+          showApp(u,currentAccountType);
+        }else{alert(msg||'Unable to complete authentication.');}
+      }catch(error){alert('Cannot connect to RideEaze server. Start the C++ backend and try again.');console.error(error);}
+    }
+
+    function showApp(username,type){
+      document.getElementById('loginOverlay').style.display='none';
+      document.getElementById('mainApp').style.display='block';
+      document.getElementById('newDriverName').value=username;
+      document.getElementById('newDriverName').disabled=true;
+      document.getElementById('bookPassName').value=username;
+      document.getElementById('bookPassName').disabled=true;
+      document.getElementById('driverPanel').style.display=type==='PASSENGER'?'none':'block';
+      document.getElementById('rideSearch').style.display=type==='DRIVER'?'none':'block';
+      document.querySelector('.hero').style.display='block';
+      document.getElementById('resultsCount').textContent=type==='DRIVER'?'Publish your available route':'Search for a compatible ride';
+    }
+
+    function addCityToRoute(){
+      const input=document.getElementById('routeBuilderInput');
+      const city=input.value.trim().toUpperCase();
+      if(!city){alert('Search and select a city first.');return;}
+      if(builtDriverRouteArray.length && builtDriverRouteArray[builtDriverRouteArray.length-1]===city){alert('This city is already the last stop.');return;}
+      builtDriverRouteArray.push(city);
+      document.getElementById('builtRouteDisplay').textContent='Route: '+builtDriverRouteArray.join('  →  ');
+      input.value='';searchCoords.route={name:'',lat:0,lon:0};
+    }
+
+    async function searchCity(inputElem,type){
+      clearTimeout(autocompleteTimeout);
+      const dropdown=document.getElementById(type+'Dropdown');
+      const query=inputElem.value.trim();
+      if(query.length<3){dropdown.style.display='none';return;}
+      autocompleteTimeout=setTimeout(async()=>{
+        dropdown.innerHTML='<div class="autocomplete-item">Searching locations…</div>';dropdown.style.display='block';
+        try{
+          const res=await fetch(`https://nominatim.openstreetmap.org/search?${new URLSearchParams({q:query,countrycodes:'in',format:'json',limit:'5'})}`,{headers:{'Accept-Language':'en'}});
+          if(!res.ok)throw new Error('Location search failed');
+          const data=await res.json();
+          if(!data.length){dropdown.innerHTML='<div class="autocomplete-item">No locations found in India.</div>';return;}
+          dropdown.innerHTML='';
+          data.forEach(item=>{
+            const div=document.createElement('div');div.className='autocomplete-item';div.textContent=item.display_name;
+            div.addEventListener('click',()=>{
+              const name=(item.name||item.display_name.split(',')[0]).toUpperCase();inputElem.value=name;
+              searchCoords[type]={name,lat:item.lat,lon:item.lon};dropdown.style.display='none';
+            });dropdown.appendChild(div);
+          });
+        }catch(error){dropdown.innerHTML='<div class="autocomplete-item">Location search unavailable. You can type a city name.</div>';console.error(error);}
+      },450);
+    }
+
+    document.addEventListener('click',e=>{
+      [['searchPickup','pickupDropdown'],['searchDropoff','dropoffDropdown'],['routeBuilderInput','routeDropdown']].forEach(([inputId,dropId])=>{
+        if(e.target.id!==inputId&&!document.getElementById(dropId).contains(e.target))document.getElementById(dropId).style.display='none';
+      });
+    });
+
+    async function addDriver(){
+      const inputName=document.getElementById('newDriverName').value.trim();
+      const inputDate=document.getElementById('newDriverDate').value;
+      const inputTime=document.getElementById('newDriverTime').value;
+      const inputCar=document.getElementById('newDriverCar').value;
+      if(!inputName||builtDriverRouteArray.length<2||!inputDate||!inputTime){alert('Please complete all fields and add at least two cities to your route.');return;}
+      try{
+        const response=await fetch(apiUrl('/api/add',{nameInput:inputName,routeInput:builtDriverRouteArray.join(','),dateInput:inputDate,startInput:inputTime,carInput:inputCar}));
+        if(!response.ok)throw new Error('Unable to publish ride');
+        const msg=await response.text();if(msg!=='Success')throw new Error(msg||'Unable to publish ride');
+        builtDriverRouteArray=[];document.getElementById('builtRouteDisplay').textContent='Your stops will appear here.';document.getElementById('newDriverTime').value='';
+        alert('Your ride has been published.');
+      }catch(error){alert('Could not publish the ride. Check that the backend is running.');console.error(error);}
+    }
+
+    function escapeHtml(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+    function renderRideCard(m){
+      const name=escapeHtml(m.driverName);const car=escapeHtml(m.carType);const score=Math.max(0,Math.min(100,Number(m.compatibilityScore)||0));
+      const path=escapeHtml(m.sharedPath||'Route details unavailable');const price=Number(m.calculatedPrice)||0;const distance=Number(m.sharedDistanceKm)||0;const duration=Number(m.sharedTravelMinutes)||0;
+      const pickup=escapeHtml(m.pickupEtaFormatted||'Not available');const drop=escapeHtml(m.dropoffEtaFormatted||'Not available');
+      const date=escapeHtml(m.travelDate||'');const dayDiff=Number(m.daysDifference)||0;const dayNote=dayDiff===0?'Same day':`${Math.abs(dayDiff)} day${Math.abs(dayDiff)===1?'':'s'} ${dayDiff>0?'after':'before'} your selected date`;
+      const initial=escapeHtml((m.driverName||'R').trim().charAt(0).toUpperCase());
+      return `<article class="result-card">
+        <div class="result-top"><div class="driver-identity"><div class="driver-avatar">${initial}</div><div><div class="driver-name">${name}</div><div class="driver-meta">${car} · ${date} · ${dayNote}</div></div></div><div class="fare"><strong>₹${price.toLocaleString('en-IN')}</strong><small>Estimated fare</small></div></div>
+        <div class="route-line"><div class="route-point"><small>PICKUP ETA</small><strong>${pickup}</strong></div><span class="route-arrow">→</span><div class="route-point"><small>DROP-OFF ETA</small><strong>${drop}</strong></div></div>
+        <div class="match-row"><span class="match-label">Route compatibility</span><span class="score-value">${score}% match</span></div><div class="score-track"><div class="score-fill" style="width:${score}%"></div></div>
+        <div class="ride-facts"><span>⌖ ${distance} km shared route</span><span>◷ ~${duration} min</span><span>↗ ${Number(m.extraStops)||0} extra stops</span></div>
+        <div style="font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5"><strong style="color:#565a73">Shared route:</strong> ${path}</div>
+        <div class="card-actions"><button class="btn btn-small" onclick="openBookingForm('${name.replace(/'/g,"\\'")}')">Book this ride →</button></div>
+      </article>`;
+    }
+
+    async function searchRides(){
+      const pickup=document.getElementById('searchPickup').value.trim().toUpperCase();
+      const dropoff=document.getElementById('searchDropoff').value.trim().toUpperCase();
+      const date=document.getElementById('searchDate').value;const time=document.getElementById('searchTime').value;
+      const resultsBox=document.getElementById('resultsArea');const count=document.getElementById('resultsCount');
+      if(!pickup||!dropoff||!date||!time){resultsBox.innerHTML='<div class="error-msg">Please enter pickup, drop-off, date and preferred time.</div>';count.textContent='Incomplete search';return;}
+      if(pickup===dropoff){resultsBox.innerHTML='<div class="error-msg">Pickup and drop-off locations must be different.</div>';return;}
+      resultsBox.innerHTML='<div class="loading-msg">Finding rides that match your route…</div>';count.textContent='Searching';
+      try{
+        const response=await fetch(apiUrl('/api/search',{pickupLocation:pickup,dropoffLocation:dropoff,travelDate:date,preferredTime:time}));
+        if(!response.ok)throw new Error('Search request failed');
+        const matches=await response.json();
+        if(!Array.isArray(matches)||matches.length===0){resultsBox.innerHTML='<div class="empty-state"><div class="empty-icon">⌁</div>No matching rides found for this route. Try another date or nearby city.</div>';count.textContent='0 matches';return;}
+        resultsBox.innerHTML=matches.map(renderRideCard).join('');count.textContent=`${matches.length} compatible ride${matches.length===1?'':'s'} found`;
+      }catch(error){resultsBox.innerHTML='<div class="error-msg">Could not reach the RideEaze server. Make sure the backend is running.</div>';count.textContent='Search unavailable';console.error(error);}
+    }
+
+    function openBookingForm(driver){
+      document.getElementById('bookDriverName').value=driver;
+      document.getElementById('bookingFormTitle').textContent='Book with '+driver;
+      document.getElementById('bookDate').value=document.getElementById('searchDate').value;
+      document.getElementById('bookingFormModal').style.display='flex';
+    }
+    function closeBookingForm(){document.getElementById('bookingFormModal').style.display='none';}
+
+    async function submitBooking(){
+      const driverName=document.getElementById('bookDriverName').value;const passName=document.getElementById('bookPassName').value.trim();
+      const contact=document.getElementById('bookContact').value.trim();const email=document.getElementById('bookEmail').value.trim();
+      const date=document.getElementById('bookDate').value;const count=document.getElementById('bookPassCount').value;
+      if(!passName||!contact||!email||!date||!count){alert('Please complete all booking details.');return;}
+      if(!/^\+?\d{10,15}$/.test(contact)){alert('Enter a valid contact number (10–15 digits).');return;}
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){alert('Enter a valid email address.');return;}
+      const currentUser=localStorage.getItem('loggedInUsername')||'';
+      try{
+        const response=await fetch(apiUrl('/api/book',{passengerName:passName,contactNumber:contact,emailAddress:email,travelDate:date,passengerCount:count,driverName,accountUsername:currentUser}));
+        if(!response.ok)throw new Error('Booking request failed');const message=await response.text();
+        if(message==='NoSeats'){alert('Not enough seats are available.');return;}
+        if(message!=='Success'){alert(message||'Booking could not be completed.');return;}
+        alert('Booking successful!');closeBookingForm();document.getElementById('bookContact').value='';document.getElementById('bookEmail').value='';document.getElementById('bookPassCount').value='1';
+      }catch(error){alert('Could not save your booking. Check the backend connection.');console.error(error);}
+    }
+
+    function openBookingsModal(){document.getElementById('bookingsModal').style.display='flex';fetchBookings();}
+    function closeBookingsModal(){document.getElementById('bookingsModal').style.display='none';}
+    async function fetchBookings(){
+      const area=document.getElementById('bookingsListArea');area.innerHTML='<div class="loading-msg">Loading your bookings…</div>';
+      try{
+        const currentUser=localStorage.getItem('loggedInUsername')||'';
+        const response=await fetch(apiUrl('/api/bookings',{user:currentUser}));if(!response.ok)throw new Error('Unable to load bookings');
+        const data=await response.json();const today=localDateString();
+        if(!data.length){area.innerHTML='<div class="empty-state">No bookings yet. Your confirmed rides will appear here.</div>';return;}
+        area.innerHTML=data.map(b=>{const past=b.travelDate<today;return `<div class="booking-card-style"><div class="booking-card-header"><strong>${escapeHtml(b.passengerName)} · ${escapeHtml(b.passengerCount)} passenger(s)</strong><span class="${past?'status-badge-done':'status-badge-upcoming'}">${past?'Completed':'Upcoming'}</span></div><div>Contact: ${escapeHtml(b.contactNumber)} · ${escapeHtml(b.emailAddress)}</div><div>Driver: <strong>${escapeHtml(b.driverName)}</strong> · ${escapeHtml(b.travelDate)}</div></div>`;}).join('');
+      }catch(error){area.innerHTML='<div class="error-msg">Could not load bookings. Check the backend connection.</div>';console.error(error);}
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay=>overlay.addEventListener('click',e=>{if(e.target===overlay&&overlay.id!=='loginOverlay')overlay.style.display='none';}));
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeBookingsModal();closeBookingForm();}});
+  </script>
+</body>
+</html>
